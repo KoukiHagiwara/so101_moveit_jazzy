@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="so101_new_calib">
+    <xacro:arg name="initial_positions_file" default="initial_positions.yaml" />
+    <xacro:arg name="hardware_type" default="real" /> 
+    <!-- Import so101_new_calib urdf file -->
+    <xacro:include filename="$(find vla_manipulator)/models/robot.urdf" />
+    <!-- Import control_xacro -->
+    <xacro:include filename="so101_new_calib.ros2_control.xacro" />
+
+    <xacro:so101_new_calib_ros2_control name="SO101Hardware" initial_positions_file="$(arg initial_positions_file)" hardware_type="$(arg hardware_type)"/>
+
+    <xacro:if value="${'gazebo' == '$(arg hardware_type)'}">
+        <gazebo>
+            <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+                <parameters>$(find vla_manipulator_sim)/config/ros2_controllers.yaml</parameters>
+            </plugin>
+        </gazebo>
+    </xacro:if>
+</robot>
