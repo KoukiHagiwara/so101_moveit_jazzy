@@ -10,7 +10,7 @@ $ sudo chmod 666 /dev/serial/by-id/usb-1a86_USB_Single_Serial_5AF7133194-if00
 $ ros2 launch so101_moveit_jazzy demo.launch.py hardware_type:=real
 
 ```
-- 学習データをもとに推論させる
+## 学習データをもとに推論させる
 - それぞれ数字ごとに別のターミナルを開いて実行
 
 - 1.MoveItの起動(実機が壊れないよう安全性をあげるため)
