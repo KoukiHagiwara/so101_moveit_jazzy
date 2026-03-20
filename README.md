@@ -23,7 +23,9 @@ $  ros2 launch so101_moveit_jazzy demo.launch.py hardware_type:=real
 
 - 2.ros2_controlの切り替え
 ```
-$  ros2 control switch_controllers --deactivate arm_controller --activate ai_position_controller
+$  ros2 control switch_controllers \
+  --deactivate arm_controller gripper_controller \
+  --activate ai_position_controller ai_gripper_controller
 ```
 - 3.推論ノード(仮想環境pixi)
 ```
@@ -40,13 +42,19 @@ $  pixi run python act_inference_node.py
 ```
 $  python3 smolvla_inference_node.py
 ```
+- 4.実機の現在位置とAIの命令値をグラフでリアルタイムで確認(必要なら)
+```
+$  ros2 run plotjuggler plotjuggler
+```
 
 ## 補足
 - plan&executeを廃止し、AIから直接モータの値を読み込むコマンド
 - これを実行することでJointTrajectoryControllerからJointGroupPositionControllerに切り替わる
 - 元に戻したい時は、--deactivate と --activate の名前を逆にすればOK
 ```
-$  ros2 control switch_controllers --deactivate arm_controller --activate ai_position_controller
+$  ros2 control switch_controllers \
+  --deactivate arm_controller gripper_controller \
+  --activate ai_position_controller ai_gripper_controller
 ```
 
 
